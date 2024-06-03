@@ -1,0 +1,66 @@
+.card{
+    width: 50%;
+    margin: auto;
+    background-color: #181E29;
+    padding: 1rem;
+    border-radius: 60px;
+    border:6px solid #212732
+    
+}
+.text-field{
+    border: none;
+    background-color: #181E29;
+    color: #ffff;
+}
+.text-field::placeholder{
+    color: white;
+    font-size: medium;
+    font-weight: 400;
+}
+.text-field:hover,
+.text-field:active,
+.text-field:focus{
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+.link-icon,
+.submit-btn{
+    border: none;
+    background: none;
+    color: white;
+}
+.submit-btn{
+    background: #144EE3;
+    border-radius: 5rem;
+    width: 5rem;
+}
+.submit-btn:focus{
+    outline: none;
+    box-shadow: none;
+    border: none;
+}
+
+.error-message{
+    color: red;
+    margin-top: 1rem;
+}
+
+
+// light theme
+
+:host-context(.light-theme) .link-icon{
+    color: grey;
+}
+:host-context(.light-theme) .card{
+    background-color: #f3f4f6;
+    border:6px solid rgba(56, 55, 55, 0.1)
+}
+:host-context(.light-theme) .text-field{
+    background-color: #f3f4f6;
+    color: gray;
+}
+:host-context(.light-theme) .text-field::placeholder{
+    color: grey;
+}
+

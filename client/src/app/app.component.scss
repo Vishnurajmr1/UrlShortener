@@ -1,0 +1,89 @@
+/* Rectangle 01 */
+.rectangle-left{
+    position: absolute;
+    left: 10%;
+    /* right: 77.94%; */
+    /* top: 10%; */
+    bottom: 40%;
+    width: 200px;
+    height: 207px;
+    /* background: #0E131E; */
+    // background: #161d21;
+    // box-shadow: 0px -24px 39px #040406, 0px 10.7667px 26.9168px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(43.0669px);
+    /* Note: backdrop-filter has minimal browser support */
+    border-radius: 50px;
+    transform: rotate(-45deg);
+    z-index: -1;
+}
+/* Rectangle 02 */
+.rectangle-top{
+    position: absolute;
+    /* left: 0%; */
+    right: 10%;
+    top: 10%;
+    bottom: 6.53%;
+    width: 200px;
+    height: 207px;
+    /* background: #0E131E; */
+    // background: #161d21;
+    // box-shadow: 0px -24px 39px #040406, 0px 10.7667px 26.9168px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(43.0669px);
+    /* Note: backdrop-filter has minimal browser support */
+    border-radius: 50px;
+    transform: rotate(-45deg);
+    z-index: -1;
+}
+/* Rectangle 03 */
+.rectangle-right{
+    position: absolute;
+    /* left: 77.94%; */
+    right: 10%;
+    /* top: ; */
+    bottom: 10%;
+    width: 200px;
+    height: 204px;
+    /* background: #0E131E; */
+    // background: #161d21;
+    /* box-shadow: 0px -14px 30px #040406, 0px 10.7667px 26.9168px rgba(0, 0, 0, 0.1); */
+    // box-shadow: 0px -14px 30px #040406, 0px 10.7667px 26.9168px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(40px);
+    /* Note: backdrop-filter has minimal browser support */
+    border-radius: 50px;
+    transform: rotate(-45deg);
+    z-index: -1;
+}
+
+
+
+/* Light theme styles */
+:host-context(.light-theme) .rectangle-left {
+    background-color: f3f4f6;
+    box-shadow: 0px -24px 40px rgba(56, 55, 55, 0.1);
+}
+
+:host-context(.light-theme) .rectangle-top {
+    background-color: f3f4f6;
+    box-shadow: 0px -24px 40px rgba(56, 55, 55, 0.1)
+}
+
+:host-context(.light-theme) .rectangle-right {
+    background-color: f3f4f6;
+    box-shadow: 0px -24px 40px rgba(56, 55, 55, 0.1)
+}
+
+/* Dark theme styles */
+:host-context(.dark-theme) .rectangle-left {
+    background-color: #161d21;
+    box-shadow: 0px -24px 40px rgba(56, 55, 55, 0.1);
+}
+
+:host-context(.dark-theme) .rectangle-top {
+    background-color: #161d21;
+    box-shadow: 0px -24px 40px rgba(56, 55, 55, 0.1);
+}
+
+:host-context(.dark-theme) .rectangle-right {
+    background-color: #161d21;
+    box-shadow: 0px -24px 40px rgba(56, 55, 55, 0.1);
+}

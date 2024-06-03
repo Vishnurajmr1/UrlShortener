@@ -1,0 +1,11 @@
+<div class="card">
+<p-toolbar styleClass="background:red">
+    <div class="p-toolbar-group-start">
+        <h1 class="gradient-text">Minurl</h1>
+    </div>
+    <div class="p-toolbar-group-end">
+      <!-- <a href="">Analysis</a> -->
+        <p-inputSwitch [(ngModel)]="checked"  (click)="onThemeChange(checked?'dark':'light')"/>
+    </div>
+</p-toolbar>
+</div>

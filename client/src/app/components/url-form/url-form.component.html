@@ -1,0 +1,17 @@
+<div class="card">
+    <p-inputGroup class="link-field">
+        <p-inputGroupAddon class="link-icon">
+            <p-inputIcon styleClass="pi pi-link"></p-inputIcon>
+        </p-inputGroupAddon>
+        <!-- <input type="text" pInputText placeholder="Enter the link here"  class="text-field"/> -->
+        <textarea pInputTextarea [autoResize]="true" class="text-field" placeholder="Enter the link here" [(ngModel)]="urlValue"></textarea>
+        <p-inputGroupAddon class="submit-btn">
+            <p-button icon="pi pi-arrow-right"  type="submit" [rounded]="true" [text]="true" [raised]="true" severity="primary" (click)="onSubmit()" />
+        </p-inputGroupAddon>
+    </p-inputGroup>
+    <div>
+    </div>
+</div>
+<div class="error-message">
+    <p class="">Something went wrong !</p>
+</div>
