@@ -1,17 +1,39 @@
 <div class="card">
+  <form [formGroup]="urlForm" (ngSubmit)="onSubmit()">
     <p-inputGroup class="link-field">
-        <p-inputGroupAddon class="link-icon">
-            <p-inputIcon styleClass="pi pi-link"></p-inputIcon>
-        </p-inputGroupAddon>
-        <!-- <input type="text" pInputText placeholder="Enter the link here"  class="text-field"/> -->
-        <textarea pInputTextarea [autoResize]="true" class="text-field" placeholder="Enter the link here" [(ngModel)]="urlValue"></textarea>
-        <p-inputGroupAddon class="submit-btn">
-            <p-button icon="pi pi-arrow-right"  type="submit" [rounded]="true" [text]="true" [raised]="true" severity="primary" (click)="onSubmit()" />
-        </p-inputGroupAddon>
+      <p-inputGroupAddon class="link-icon">
+        <p-inputIcon styleClass="pi pi-link"></p-inputIcon>
+      </p-inputGroupAddon>
+      <!-- <input type="text" pInputText placeholder="Enter the link here"  class="text-field"/> -->
+      <textarea
+        pInputTextarea
+        [autoResize]="true"
+        class="text-field"
+        placeholder="Enter the link here"
+        formControlName="url"
+      ></textarea>
+      <p-inputGroupAddon class="submit-btn">
+        <p-button
+          icon="pi pi-arrow-right"
+          type="submit"
+          [rounded]="true"
+          [text]="true"
+          [raised]="true"
+          severity="primary"
+          (click)="onSubmit()"
+        />
+      </p-inputGroupAddon>
     </p-inputGroup>
-    <div>
-    </div>
+    <div></div>
+  </form>
 </div>
-<div class="error-message">
-    <p class="">Something went wrong !</p>
+<div *ngIf="urlControl?.touched && urlControl?.invalid" class="error-messages">
+  <div *ngIf="(urlControl?.errors)!['required']">This field is required.</div>
+  <div
+    *ngIf="
+      (urlControl?.errors)!['invalidUrl'] && !(urlControl?.errors)!['required']
+    "
+  >
+    Invalid URL. Please enter a valid URL starting with 'http://' or 'https://'.
+  </div>
 </div>
