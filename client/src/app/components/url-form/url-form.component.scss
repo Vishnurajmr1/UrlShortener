@@ -16,6 +16,7 @@
     color: white;
     font-size: medium;
     font-weight: 400;
+    text-align: start;
 }
 .text-field:hover,
 .text-field:active,
@@ -52,7 +53,7 @@
 // light theme
 
 :host-context(.light-theme) .link-icon{
-    color: grey;
+    color: #181E29;
 }
 :host-context(.light-theme) .card{
     background-color: #f3f4f6;
@@ -60,9 +61,9 @@
 }
 :host-context(.light-theme) .text-field{
     background-color: #f3f4f6;
-    color: gray;
+    color: #181E29;
 }
 :host-context(.light-theme) .text-field::placeholder{
-    color: grey;
+    color: #181E29;
 }
 

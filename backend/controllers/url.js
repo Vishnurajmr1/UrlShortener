@@ -1,28 +1,49 @@
 const { nanoid } = require("nanoid");
 const URL = require("../models/url");
 
-async function handleGenerateNewShortURL(req, res) {
-  const body = req.body;
-  if (!body.url) return res.status(400).json({ error: "Url is required" });
-  const shortID = nanoid(8);
-  await URL.create({
-    shortId: shortID,
-    redirectUrl: body.url,
-    visitHistory: [],
-  });
-  return res.status(200).json({ id: shortID });
+async function handleGenerateNewShortURL(req, res, next) {
+  try {
+    const body = req.body;
+    console.log(`here is body url`, body);
+    if (!body.url) return res.status(400).json({ error: "Url is required" });
+    const shortID = nanoid(8);
+    const newUrl = await URL.create({
+      shortId: shortID,
+      redirectUrl: body.url,
+      visitHistory: [],
+    });
+    const savedUrl = await URL.findOne({ shortId: shortID });
+    if (savedUrl) {
+      return res
+        .status(200)
+        .json({
+          id: savedUrl.shortId,
+          url: savedUrl.redirectUrl,
+          createdAt: savedUrl.createdAt,
+        });
+    }else{
+      return res.status(500).json({error:"Failed to create short URL"});
+    }
+  } catch (error) {
+    next(error);
+  }
 }
 
-async function getShortUrl(req, res) {
-  const shortId = req.params.shortId;
-  const entry = await URL.findOneAndUpdate(
-    { shortId: shortId },
-    { $push: { visitHistory: { timestamp: Date.now() } } }
-  );
-  res.status(301).redirect(entry.redirectUrl);
+async function getShortUrl(req, res, next) {
+  try {
+    const shortId = req.params.shortId;
+    const entry = await URL.findOneAndUpdate(
+      { shortId: shortId },
+      { $push: { visitHistory: { timestamp: Date.now() } } }
+    );
+    console.log(`Entry after getShortUrl${entry}`);
+    res.status(301).redirect(entry.redirectUrl);
+  } catch (error) {
+    next(error);
+  }
 }
 
-async function handleGetAnalytics(req, res) {
+async function handleGetAnalytics(req, res, next) {
   try {
     const shortId = req.params.shortId;
     const result = await URL.findOne({ shortId });
@@ -31,7 +52,7 @@ async function handleGetAnalytics(req, res) {
       analytics: result.visitHistory,
     });
   } catch (error) {
-    throw new Error(error.message);
+    next(error);
   }
 }
 

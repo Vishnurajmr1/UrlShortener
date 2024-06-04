@@ -1,4 +1,5 @@
-export interface IApiUrl{
-    id:string;
-    url:string;
+export interface IApiUrl {
+  id: string;
+  url: string;
+  createdAt: Date;
 }
