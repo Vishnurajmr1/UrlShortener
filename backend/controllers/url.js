@@ -32,12 +32,18 @@ async function handleGenerateNewShortURL(req, res, next) {
 async function getShortUrl(req, res, next) {
   try {
     const shortId = req.params.shortId;
+    console.log(shortId)
     const entry = await URL.findOneAndUpdate(
       { shortId: shortId },
       { $push: { visitHistory: { timestamp: Date.now() } } }
     );
     console.log(`Entry after getShortUrl${entry}`);
-    res.status(301).redirect(entry.redirectUrl);
+    if(entry){
+
+      res.status(200).json(entry);
+    }else{
+      res.status(404).json({error:'Short Url is not Found'});
+    }
   } catch (error) {
     next(error);
   }
@@ -55,9 +61,22 @@ async function handleGetAnalytics(req, res, next) {
     next(error);
   }
 }
+async function deleteShortUrl(req,res,next){
+  try{
+    const shortId=req.params.shortId;
+    console.log(shortId)
+    await URL.findOneAndDelete({shortId:shortId});
+    return res.status(200).json({
+      message:'delete successfully'
+    })
+  }catch(error){
+    next(error)
+  }
+}
 
 module.exports = {
   handleGenerateNewShortURL,
   getShortUrl,
   handleGetAnalytics,
+  deleteShortUrl
 };
