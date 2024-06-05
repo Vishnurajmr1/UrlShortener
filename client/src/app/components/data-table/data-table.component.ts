@@ -1,4 +1,10 @@
-import { Component, inject } from '@angular/core';
+import {
+  Component,
+  inject,
+  Renderer2,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { TagModule } from 'primeng/tag';
@@ -32,14 +38,17 @@ import { Column } from '../../shared/models/table';
   providers: [MessageService],
 })
 export class DataTableComponent {
+  @ViewChild('copyButton') copyButton?: ElementRef<any>;
   tableData: IApiUrl[] = [];
   private apiService = inject(ApiService);
   private messageService = inject(MessageService);
+  private render2 = inject(Renderer2);
   private destroy$ = new Subject<void>();
   shortUrl: string = '';
   cols!: Column[];
   counter: number = 0;
   deleteMessage: string = '';
+  buttonDisbaled: { [key: string]: boolean } = {};
 
   ngOnInit(): void {
     this.apiService.urlData$.pipe(takeUntil(this.destroy$)).subscribe({
@@ -64,15 +73,45 @@ export class DataTableComponent {
   getUrl(shortId: string): string {
     return `${environment.baseUrl}/url/${shortId}`;
   }
-  redirectToUrl(shortId: string,event:MouseEvent) {
+  redirectToUrl(shortId: string, event: MouseEvent) {
     event.stopPropagation();
-    this.apiService
-      .getShortUrl(shortId)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((response) => {
-        window.open(response.redirectUrl,'_blank');
-        // window.location.href = response.redirectUrl;
+    window.open(this.getUrl(shortId), '_blank');
+  }
+
+  copyToCliboard(id: string, event: MouseEvent): void {
+    event.stopPropagation();
+    const shortUrl = this.getUrl(id);
+    navigator.clipboard
+      .writeText(shortUrl)
+      .then(() => {
+        this.render2.setAttribute(
+          this.copyButton?.nativeElement,
+          'title',
+          'Copied'
+        );
+        // const button=event.target as HTMLButtonElement;
+        // console.log(button)
+        // button.title='Copied';
+        const dataRow = this.findDataRowByUrl(id);
+        if (dataRow) {
+          this.buttonDisbaled[id] = true;
+          setTimeout(() => {
+            this.buttonDisbaled[id] = false;
+            this.render2.removeAttribute(
+              this.copyButton?.nativeElement,
+              'title'
+            );
+            // button.title='';
+          }, 5000);
+        }
+      })
+      .catch((err) => {
+        console.error('Could not copy text', err);
       });
+  }
+
+  findDataRowByUrl(urlId: string) {
+    return this.tableData.find((data) => data.id === urlId);
   }
   deleteShortUrl(shortId: string) {
     console.log(shortId);

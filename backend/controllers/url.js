@@ -39,8 +39,8 @@ async function getShortUrl(req, res, next) {
     );
     console.log(`Entry after getShortUrl${entry}`);
     if(entry){
-
-      res.status(200).json(entry);
+      res.status(301).redirect(entry.redirectUrl);
+      // res.status(200).json(entry);
     }else{
       res.status(404).json({error:'Short Url is not Found'});
     }

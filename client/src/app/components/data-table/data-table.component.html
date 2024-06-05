@@ -14,11 +14,14 @@
                         <div class="short-url-main">
                             <p class="inline-block" (click)="redirectToUrl(data.id,$event)">{{getUrl(data.id)}}</p>
                             <button 
+                                #copyButton
                                 pButton 
                                 pRipple 
                                 type="button" 
                                 icon="pi pi-clipboard"            
                                 class="p-button-rounded p-button-text"
+                                (click)="copyToCliboard(data.id,$event)"
+                                [disabled]="buttonDisbaled[data.id]"
                                 >
                             </button>
                             </div>
